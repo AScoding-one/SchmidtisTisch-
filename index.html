@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SchmidtisTisch</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;700&family=Lora:wght@400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #A0522D;
+            --secondary: #D4A574;
+            --accent: #8B4513;
+            --light: #F5EFE7;
+            --lighter: #FEFAF4;
+            --dark: #2F1810;
+            --text: #3E3E3E;
+            --text-soft: #7A7A7A;
+            --success: #6B7D65;
+            --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+            --shadow-md: 0 8px 24px rgba(0,0,0,0.1);
+            --shadow-lg: 0 16px 48px rgba(0,0,0,0.12);
+            --transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            background: linear-gradient(180deg, var(--lighter) 0%, var(--light) 100%);
+            color: var(--text);
+            line-height: 1.7;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--light);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--secondary);
+            border-radius: 5px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            margin-bottom: 4rem;
+            animation: fadeInDown 0.8s ease-out;
+            position: relative;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -100px;
+            right: -100px;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(208, 165, 116, 0.1) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -150px;
+            left: -150px;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(160, 82, 45, 0.08) 0%, transparent 70%);
+            border-radius: 50%;
+            pointer-events: none;
+            animation: float 8s ease-in-out infinite reverse;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-icon {
+            font-size: 80px;
+            margin-bottom: 1rem;
+            display: inline-block;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-15px); }
+        }
+
+        .hero h1 {
+            font-family: 'Caveat', cursive;
+            font-size: 72px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            letter-spacing: -1px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-soft);
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            margin-bottom: 0;
+        }
+
+        /* Controls */
+        .controls {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s ease-out 0.1s backwards;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .search-box {
+            flex: 1;
+            min-width: 250px;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 13px 18px 13px 45px;
+            border: 2px solid var(--light);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Lora', serif;
+            background: white;
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .search-box input::placeholder {
+            color: var(--text-soft);
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: var(--lighter);
+            box-shadow: 0 0 0 4px rgba(212, 165, 116, 0.1);
+        }
+
+        .search-box::before {
+            content: '🔍';
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 18px;
+            pointer-events: none;
+        }
+
+        .controls select {
+            padding: 13px 16px;
+            border: 2px solid var(--light);
+            border-radius: 12px;
+            font-size: 15px;
+            font-family: 'Lora', serif;
+            background: white;
+            color: var(--text);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .controls select:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: var(--lighter);
+            box-shadow: 0 0 0 4px rgba(212, 165, 116, 0.1);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            padding: 13px 28px;
+            border: none;
+            border-radius: 12px;
+            font-weight: 600;
+            font-family: 'Lora', serif;
+            cursor: pointer;
+            font-size: 15px;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            white-space: nowrap;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-1px);
+        }
+
+        /* Form */
+        .form-container {
+            background: white;
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 3rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-container h2 {
+            font-family: 'Caveat', cursive;
+            font-size: 42px;
+            color: var(--dark);
+            margin-bottom: 2rem;
+            font-weight: 700;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-grid.full {
+            grid-template-columns: 1fr;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--text-soft);
+            margin-bottom: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 13px 16px;
+            border: 2px solid var(--light);
+            border-radius: 12px;
+            font-family: 'Lora', serif;
+            font-size: 15px;
+            background: var(--lighter);
+            color: var(--text);
+            transition: var(--transition);
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            background: white;
+            box-shadow: 0 0 0 4px rgba(212, 165, 116, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        .photo-preview {
+            max-width: 220px;
+            max-height: 220px;
+            margin-top: 12px;
+            border-radius: 16px;
+            border: 2px solid var(--light);
+            object-fit: cover;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .photo-controls {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+            flex-wrap: wrap;
+        }
+
+        .btn-secondary {
+            background: white;
+            color: var(--primary);
+            padding: 10px 16px;
+            border: 2px solid var(--light);
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+            font-family: 'Lora', serif;
+            transition: var(--transition);
+            flex: 1;
+            min-width: 120px;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--secondary);
+            background: var(--lighter);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-family: 'Lora', serif;
+            font-size: 16px;
+            margin-top: 1.5rem;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Grid */
+        .recipes-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 4rem;
+            animation: fadeIn 0.8s ease-out 0.3s backwards;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--secondary);
+        }
+
+        .recipe-image {
+            position: relative;
+            width: 100%;
+            height: 240px;
+            background: linear-gradient(135deg, rgba(160, 82, 45, 0.08) 0%, rgba(212, 165, 116, 0.08) 100%);
+            overflow: hidden;
+        }
+
+        .recipe-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+
+        .recipe-card:hover .recipe-photo {
+            transform: scale(1.08);
+        }
+
+        .recipe-badge {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            background: white;
+            padding: 8px 14px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--primary);
+            box-shadow: var(--shadow-md);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .recipe-body {
+            padding: 2rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .recipe-name {
+            font-family: 'Caveat', cursive;
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .recipe-category {
+            display: inline-block;
+            padding: 6px 14px;
+            background: linear-gradient(135deg, rgba(160, 82, 45, 0.08) 0%, rgba(212, 165, 116, 0.08) 100%);
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .recipe-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 14px;
+            color: var(--text-soft);
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--light);
+            font-family: 'Inter', sans-serif;
+        }
+
+        .recipe-ingredients {
+            font-size: 13px;
+            background: var(--lighter);
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            max-height: 120px;
+            overflow-y: auto;
+            line-height: 1.8;
+        }
+
+        .recipe-ingredients strong {
+            display: block;
+            color: var(--primary);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .recipe-ingredients li {
+            margin-left: 20px;
+            color: var(--text);
+        }
+
+        .recipe-notes {
+            font-size: 13px;
+            color: var(--text-soft);
+            font-style: italic;
+            padding: 12px;
+            background: rgba(212, 165, 116, 0.08);
+            border-left: 4px solid var(--secondary);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .recipe-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .btn-action {
+            flex: 1;
+            padding: 11px;
+            border: 2px solid var(--light);
+            border-radius: 10px;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 600;
+            font-family: 'Lora', serif;
+            transition: var(--transition);
+        }
+
+        .btn-edit {
+            color: var(--primary);
+        }
+
+        .btn-edit:hover {
+            border-color: var(--secondary);
+            background: var(--lighter);
+        }
+
+        .btn-delete {
+            color: #D9534F;
+            border-color: #E8C4C4;
+        }
+
+        .btn-delete:hover {
+            border-color: #D9534F;
+            background: #FEF0F0;
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            background: white;
+            border: 3px dashed var(--light);
+            border-radius: 20px;
+            color: var(--text-soft);
+            animation: fadeInUp 0.8s ease-out 0.2s backwards;
+        }
+
+        .empty-icon {
+            font-size: 80px;
+            margin-bottom: 1.5rem;
+            opacity: 0.5;
+        }
+
+        .empty-state h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 36px;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .empty-state p {
+            font-size: 15px;
+            line-height: 1.8;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Backup Section */
+        .backup-section {
+            margin-top: 4rem;
+            padding: 2.5rem;
+            background: white;
+            border-radius: 20px;
+            box-shadow: var(--shadow-lg);
+            text-align: center;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            animation: fadeInUp 0.8s ease-out 0.3s backwards;
+        }
+
+        .backup-section h3 {
+            font-family: 'Caveat', cursive;
+            font-size: 40px;
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .backup-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 1.5rem;
+        }
+
+        .backup-desc {
+            font-size: 14px;
+            color: var(--text-soft);
+            font-style: italic;
+            margin-bottom: 1.5rem;
+        }
+
+        .stats-box {
+            background: linear-gradient(135deg, rgba(160, 82, 45, 0.05) 0%, rgba(212, 165, 116, 0.05) 100%);
+            padding: 2rem;
+            border-radius: 16px;
+            border: 2px solid var(--light);
+        }
+
+        .stats-number {
+            font-family: 'Caveat', cursive;
+            font-size: 56px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stats-label {
+            font-size: 13px;
+            color: var(--text-soft);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+        }
+
+        /* Video/Camera */
+        video {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 16px;
+            margin: 12px 0;
+        }
+
+        #cameraControls {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        #cameraControls button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            cursor: pointer;
+            font-size: 14px;
+            font-family: 'Lora', serif;
+            transition: var(--transition);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 52px;
+            }
+
+            .recipes-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .controls {
+                flex-direction: column;
+            }
+
+            .search-box,
+            .btn-primary {
+                width: 100%;
+            }
+
+            .form-container {
+                padding: 1.5rem;
+            }
+
+            .recipe-body {
+                padding: 1.5rem;
+            }
+
+            .recipe-name {
+                font-size: 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Hero -->
+        <div class="hero">
+            <div class="hero-content">
+                <div class="hero-icon">🍽️</div>
+                <h1>SchmidtisTisch</h1>
+                <p>Wo Familienrezepte zuhause sind</p>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="controls">
+            <div class="search-box">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Rezept oder Zutat suchen…"
+                >
+            </div>
+            <select id="categoryFilter">
+                <option value="">Alle Kategorien</option>
+                <option value="Suppen">🍲 Suppen</option>
+                <option value="Hauptgerichte">🍽️ Hauptgerichte</option>
+                <option value="Desserts">🍰 Desserts</option>
+                <option value="Gebäck">🥐 Gebäck</option>
+                <option value="Gemüse">🥬 Gemüse</option>
+                <option value="Salate">🥗 Salate</option>
+                <option value="Saucen">🍯 Saucen</option>
+            </select>
+            <button class="btn-primary" id="toggleFormBtn">+ Neues Rezept</button>
+        </div>
+
+        <!-- Form -->
+        <div class="form-container hidden" id="formContainer">
+            <h2 id="formTitle">Neues Rezept</h2>
+            <form id="recipeForm">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Rezeptname *</label>
+                        <input type="text" id="recipeName" placeholder="z.B. Großmutters Kartoffeleintopf" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Kategorie</label>
+                        <select id="recipeCategory">
+                            <option value="Suppen">🍲 Suppen</option>
+                            <option value="Hauptgerichte" selected>🍽️ Hauptgerichte</option>
+                            <option value="Desserts">🍰 Desserts</option>
+                            <option value="Gebäck">🥐 Gebäck</option>
+                            <option value="Gemüse">🥬 Gemüse</option>
+                            <option value="Salate">🥗 Salate</option>
+                            <option value="Saucen">🍯 Saucen</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Schwierigkeit</label>
+                        <select id="recipeDifficulty">
+                            <option value="⭐ Einfach">⭐ Einfach</option>
+                            <option value="⭐⭐ Mittel" selected>⭐⭐ Mittel</option>
+                            <option value="⭐⭐⭐ Schwierig">⭐⭐⭐ Schwierig</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Zubereitungszeit (Min.)</label>
+                        <input type="number" id="recipeTime" value="45" min="5">
+                    </div>
+                </div>
+
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label>Zutaten * (Zeilenweise)</label>
+                        <textarea id="recipeIngredients" placeholder="500g Kartoffeln&#10;3 Zwiebeln&#10;2l Brühe&#10;..." required></textarea>
+                    </div>
+                </div>
+
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label>Anleitung</label>
+                        <textarea id="recipeInstructions" placeholder="Schritt für Schritt…"></textarea>
+                    </div>
+                </div>
+
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label>Foto</label>
+                        <div class="photo-controls">
+                            <input type="file" id="recipePhoto" accept="image/*;capture=environment" style="display: none;">
+                            <button type="button" id="uploadBtn" class="btn-secondary">📤 Hochladen</button>
+                            <button type="button" id="cameraBtn" class="btn-secondary">📷 Kamera</button>
+                        </div>
+                        <img id="photoPreview" class="photo-preview hidden">
+                        <video id="cameraStream" style="display: none;"></video>
+                        <div id="cameraControls" style="display: none;">
+                            <button type="button" id="captureBtn" class="btn-primary" style="flex: 1;">📸 Foto machen</button>
+                            <button type="button" id="closeCameraBtn" class="btn-secondary">✕ Abbrechen</button>
+                        </div>
+                        <canvas id="cameraCanvas" style="display: none;"></canvas>
+                    </div>
+                </div>
+
+                <div class="form-grid full">
+                    <div class="form-group">
+                        <label>Notizen / Familiengeschichte</label>
+                        <textarea id="recipeNotes" placeholder="Wer liebt dieses Rezept? Besondere Momente damit?"></textarea>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submitBtn">Rezept speichern</button>
+            </form>
+        </div>
+
+        <!-- Grid -->
+        <div id="recipesContainer" class="recipes-grid"></div>
+
+        <!-- Empty State -->
+        <div id="emptyState" class="empty-state">
+            <div class="empty-icon">👨‍🍳</div>
+            <h3>Noch leer hier</h3>
+            <p>Startet mit eurem Lieblings-Rezept<br>und baut gemeinsam eure Familie-Sammlung</p>
+        </div>
+
+        <!-- Backup -->
+        <div class="backup-section">
+            <h3>💾 Rezepte sichern</h3>
+            <div class="backup-buttons">
+                <button id="exportBtn" class="btn-primary">📥 Alle exportieren</button>
+                <button id="importBtn" class="btn-primary">📤 Importieren</button>
+                <input type="file" id="importFile" accept=".json" style="display: none;">
+            </div>
+            <p class="backup-desc">Sichert eure Schätze oder übertragt sie auf ein anderes Gerät</p>
+
+            <div id="statsContainer" class="stats-box" style="display: none;">
+                <div class="stats-number" id="statsNumber">0</div>
+                <div class="stats-label" id="statsLabel">Rezepte gespeichert</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let recipes = [];
+        let editingId = null;
+        let cameraStream = null;
+
+        const el = {
+            searchInput: document.getElementById('searchInput'),
+            categoryFilter: document.getElementById('categoryFilter'),
+            toggleFormBtn: document.getElementById('toggleFormBtn'),
+            formContainer: document.getElementById('formContainer'),
+            formTitle: document.getElementById('formTitle'),
+            recipeForm: document.getElementById('recipeForm'),
+            recipeName: document.getElementById('recipeName'),
+            recipeCategory: document.getElementById('recipeCategory'),
+            recipeDifficulty: document.getElementById('recipeDifficulty'),
+            recipeTime: document.getElementById('recipeTime'),
+            recipeIngredients: document.getElementById('recipeIngredients'),
+            recipeInstructions: document.getElementById('recipeInstructions'),
+            recipePhoto: document.getElementById('recipePhoto'),
+            photoPreview: document.getElementById('photoPreview'),
+            recipeNotes: document.getElementById('recipeNotes'),
+            submitBtn: document.getElementById('submitBtn'),
+            recipesContainer: document.getElementById('recipesContainer'),
+            emptyState: document.getElementById('emptyState'),
+            statsContainer: document.getElementById('statsContainer'),
+            statsNumber: document.getElementById('statsNumber'),
+            statsLabel: document.getElementById('statsLabel')
+        };
+
+        function loadRecipes() {
+            const saved = localStorage.getItem('schmidtis_rezepte');
+            if (saved) {
+                try {
+                    recipes = JSON.parse(saved);
+                } catch (e) {
+                    console.error('Error:', e);
+                    recipes = [];
+                }
+            }
+        }
+
+        function saveRecipes() {
+            localStorage.setItem('schmidtis_rezepte', JSON.stringify(recipes));
+        }
+
+        function renderRecipes() {
+            const searchTerm = el.searchInput.value.toLowerCase();
+            const filterCategory = el.categoryFilter.value;
+
+            const filtered = recipes.filter(r => {
+                const matchesSearch = r.name.toLowerCase().includes(searchTerm) ||
+                                    r.ingredients.toLowerCase().includes(searchTerm);
+                const matchesCategory = !filterCategory || r.category === filterCategory;
+                return matchesSearch && matchesCategory;
+            });
+
+            el.recipesContainer.innerHTML = '';
+
+            if (filtered.length === 0) {
+                el.emptyState.style.display = 'block';
+                el.statsContainer.style.display = 'none';
+            } else {
+                el.emptyState.style.display = 'none';
+                if (recipes.length > 0) {
+                    el.statsContainer.style.display = 'block';
+                    el.statsNumber.textContent = recipes.length;
+                    el.statsLabel.textContent = recipes.length === 1 ? 'Rezept gespeichert' : 'Rezepte gespeichert';
+                }
+                
+                filtered.forEach((recipe, idx) => {
+                    el.recipesContainer.appendChild(createCard(recipe));
+                });
+            }
+        }
+
+        function createCard(recipe) {
+            const card = document.createElement('div');
+            card.className = 'recipe-card';
+
+            const imageWrapper = document.createElement('div');
+            imageWrapper.className = 'recipe-image';
+
+            if (recipe.photo) {
+                const img = document.createElement('img');
+                img.src = recipe.photo;
+                img.alt = recipe.name;
+                img.className = 'recipe-photo';
+                imageWrapper.appendChild(img);
+            } else {
+                imageWrapper.style.display = 'flex';
+                imageWrapper.style.alignItems = 'center';
+                imageWrapper.style.justifyContent = 'center';
+                imageWrapper.style.fontSize = '72px';
+                imageWrapper.textContent = '🍽️';
+            }
+
+            const badge = document.createElement('div');
+            badge.className = 'recipe-badge';
+            badge.textContent = recipe.difficulty;
+            imageWrapper.appendChild(badge);
+
+            card.appendChild(imageWrapper);
+
+            const body = document.createElement('div');
+            body.className = 'recipe-body';
+
+            const name = document.createElement('h3');
+            name.className = 'recipe-name';
+            name.textContent = recipe.name;
+
+            const category = document.createElement('span');
+            category.className = 'recipe-category';
+            category.textContent = recipe.category;
+
+            body.appendChild(name);
+            body.appendChild(category);
+
+            const meta = document.createElement('div');
+            meta.className = 'recipe-meta';
+            meta.innerHTML = `<span>⏱️ ${recipe.time} Min</span>`;
+            body.appendChild(meta);
+
+            if (recipe.ingredients) {
+                const ings = document.createElement('div');
+                ings.className = 'recipe-ingredients';
+                const lines = recipe.ingredients.split('\n').filter(i => i.trim());
+                ings.innerHTML = '<strong>Zutaten:</strong><ul>' +
+                    lines.slice(0, 5).map(ing => `<li>${ing.trim()}</li>`).join('') +
+                    (lines.length > 5 ? `<li style="color: var(--text-soft);">… und ${lines.length - 5} mehr</li>` : '') +
+                    '</ul>';
+                body.appendChild(ings);
+            }
+
+            if (recipe.notes) {
+                const notes = document.createElement('div');
+                notes.className = 'recipe-notes';
+                notes.textContent = '💝 ' + recipe.notes;
+                body.appendChild(notes);
+            }
+
+            const actions = document.createElement('div');
+            actions.className = 'recipe-actions';
+
+            const editBtn = document.createElement('button');
+            editBtn.className = 'btn-action btn-edit';
+            editBtn.textContent = '✏️ Bearbeiten';
+            editBtn.type = 'button';
+            editBtn.onclick = () => editRecipe(recipe);
+
+            const delBtn = document.createElement('button');
+            delBtn.className = 'btn-action btn-delete';
+            delBtn.textContent = '🗑️ Löschen';
+            delBtn.type = 'button';
+            delBtn.onclick = () => deleteRecipe(recipe.id);
+
+            actions.appendChild(editBtn);
+            actions.appendChild(delBtn);
+            body.appendChild(actions);
+
+            card.appendChild(body);
+            return card;
+        }
+
+        function handleSubmit(e) {
+            e.preventDefault();
+
+            if (!el.recipeName.value || !el.recipeIngredients.value) {
+                alert('Bitte Name und Zutaten ausfüllen');
+                return;
+            }
+
+            const data = {
+                name: el.recipeName.value,
+                category: el.recipeCategory.value,
+                difficulty: el.recipeDifficulty.value,
+                time: parseInt(el.recipeTime.value),
+                ingredients: el.recipeIngredients.value,
+                instructions: el.recipeInstructions.value,
+                notes: el.recipeNotes.value,
+                photo: el.photoPreview.src || ''
+            };
+
+            if (editingId) {
+                const idx = recipes.findIndex(r => r.id === editingId);
+                data.id = editingId;
+                recipes[idx] = data;
+                editingId = null;
+            } else {
+                data.id = Date.now();
+                recipes.push(data);
+            }
+
+            saveRecipes();
+            resetForm();
+            renderRecipes();
+        }
+
+        function resetForm() {
+            el.recipeForm.reset();
+            el.photoPreview.classList.add('hidden');
+            el.photoPreview.src = '';
+            el.formContainer.classList.add('hidden');
+            el.toggleFormBtn.textContent = '+ Neues Rezept';
+            el.formTitle.textContent = 'Neues Rezept';
+            el.submitBtn.textContent = 'Rezept speichern';
+            editingId = null;
+        }
+
+        function editRecipe(recipe) {
+            el.recipeName.value = recipe.name;
+            el.recipeCategory.value = recipe.category;
+            el.recipeDifficulty.value = recipe.difficulty;
+            el.recipeTime.value = recipe.time;
+            el.recipeIngredients.value = recipe.ingredients;
+            el.recipeInstructions.value = recipe.instructions;
+            el.recipeNotes.value = recipe.notes;
+
+            if (recipe.photo) {
+                el.photoPreview.src = recipe.photo;
+                el.photoPreview.classList.remove('hidden');
+            }
+
+            editingId = recipe.id;
+            el.formContainer.classList.remove('hidden');
+            el.toggleFormBtn.textContent = '✕ Abbrechen';
+            el.formTitle.textContent = 'Rezept bearbeiten';
+            el.submitBtn.textContent = 'Rezept aktualisieren';
+            window.scrollTo(0, 0);
+        }
+
+        function deleteRecipe(id) {
+            if (confirm('Rezept löschen?')) {
+                recipes = recipes.filter(r => r.id !== id);
+                saveRecipes();
+                renderRecipes();
+            }
+        }
+
+        // Upload
+        document.getElementById('uploadBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            el.recipePhoto.click();
+        });
+
+        el.recipePhoto.addEventListener('change', (e) => {
+            const file = e.target.files?.[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    el.photoPreview.src = event.target.result;
+                    el.photoPreview.classList.remove('hidden');
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+
+        // Camera
+        document.getElementById('cameraBtn').addEventListener('click', async (e) => {
+            e.preventDefault();
+            try {
+                cameraStream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { facingMode: 'environment' } 
+                });
+                document.getElementById('cameraStream').srcObject = cameraStream;
+                document.getElementById('cameraStream').style.display = 'block';
+                document.getElementById('cameraControls').style.display = 'flex';
+                document.getElementById('cameraBtn').style.display = 'none';
+                document.getElementById('uploadBtn').style.display = 'none';
+            } catch (err) {
+                alert('Kamera nicht verfügbar');
+            }
+        });
+
+        document.getElementById('captureBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            const video = document.getElementById('cameraStream');
+            const canvas = document.getElementById('cameraCanvas');
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            ctx.drawImage(video, 0, 0);
+
+            el.photoPreview.src = canvas.toDataURL('image/jpeg');
+            el.photoPreview.classList.remove('hidden');
+
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(t => t.stop());
+                cameraStream = null;
+            }
+
+            document.getElementById('cameraStream').style.display = 'none';
+            document.getElementById('cameraControls').style.display = 'none';
+            document.getElementById('cameraBtn').style.display = 'block';
+            document.getElementById('uploadBtn').style.display = 'block';
+        });
+
+        document.getElementById('closeCameraBtn').addEventListener('click', (e) => {
+            e.preventDefault();
+            if (cameraStream) {
+                cameraStream.getTracks().forEach(t => t.stop());
+                cameraStream = null;
+            }
+            document.getElementById('cameraStream').style.display = 'none';
+            document.getElementById('cameraControls').style.display = 'none';
+            document.getElementById('cameraBtn').style.display = 'block';
+            document.getElementById('uploadBtn').style.display = 'block';
+        });
+
+        // Export
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            if (recipes.length === 0) {
+                alert('Keine Rezepte zum Speichern');
+                return;
+            }
+
+            const json = JSON.stringify(recipes, null, 2);
+            const blob = new Blob([json], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `SchmidtisTisch_${new Date().toISOString().slice(0,10)}.json`;
+            link.click();
+            URL.revokeObjectURL(url);
+        });
+
+        document.getElementById('importBtn').addEventListener('click', () => {
+            document.getElementById('importFile').click();
+        });
+
+        document.getElementById('importFile').addEventListener('change', (e) => {
+            const file = e.target.files?.[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (event) => {
+                try {
+                    const imported = JSON.parse(event.target.result);
+                    if (!Array.isArray(imported)) throw new Error('Ungültig');
+
+                    const ok = confirm(`${imported.length} Rezepte gefunden. Importieren?`);
+                    if (!ok) return;
+
+                    const merge = confirm('Hinzufügen (JA) oder Ersetzen (NEIN)?');
+                    if (merge) {
+                        imported.forEach(r => {
+                            const idx = recipes.findIndex(x => x.id === r.id);
+                            if (idx !== -1) recipes[idx] = r;
+                            else recipes.push(r);
+                        });
+                    } else {
+                        recipes = imported;
+                    }
+
+                    saveRecipes();
+                    renderRecipes();
+                    alert('✅ Fertig!');
+                } catch (err) {
+                    alert('❌ Fehler: ' + err.message);
+                }
+            };
+            reader.readAsText(file);
+            e.target.value = '';
+        });
+
+        // Events
+        el.toggleFormBtn.addEventListener('click', () => {
+            el.formContainer.classList.toggle('hidden');
+            if (el.formContainer.classList.contains('hidden')) {
+                resetForm();
+            } else {
+                el.toggleFormBtn.textContent = '✕ Abbrechen';
+            }
+        });
+
+        el.recipeForm.addEventListener('submit', handleSubmit);
+        el.searchInput.addEventListener('input', renderRecipes);
+        el.categoryFilter.addEventListener('change', renderRecipes);
+
+        // Init
+        loadRecipes();
+        renderRecipes();
+    </script>
+</body>
+</html>
