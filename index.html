@@ -674,6 +674,9 @@
 
         /* Responsive */
         @media (max-width: 768px) {
+            .btn-secondary,.btn-primary,.btn-submit{min-height:48px;font-size:16px;}
+            input,select,textarea{font-size:16px !important;}
+            .photo-preview{max-width:100%;height:auto;}
             .container {
                 padding: 2rem 1rem;
             }
@@ -809,7 +812,7 @@
                             <button type="button" id="cameraBtn" class="btn-secondary">📷 Kamera</button>
                         </div>
                         <img id="photoPreview" class="photo-preview hidden">
-                        <video id="cameraStream" style="display: none;"></video>
+                        <video id="cameraStream" autoplay playsinline muted style="display:none;width:100%;max-width:100%;border-radius:16px;"></video>
                         <div id="cameraControls" style="display: none;">
                             <button type="button" id="captureBtn" class="btn-primary" style="flex: 1;">📸 Foto machen</button>
                             <button type="button" id="closeCameraBtn" class="btn-secondary">✕ Abbrechen</button>
@@ -1119,8 +1122,10 @@
                 cameraStream = await navigator.mediaDevices.getUserMedia({ 
                     video: { facingMode: 'environment' } 
                 });
-                document.getElementById('cameraStream').srcObject = cameraStream;
-                document.getElementById('cameraStream').style.display = 'block';
+                const video=document.getElementById('cameraStream');
+                video.srcObject = cameraStream;
+                video.style.display='block';
+                await video.play().catch(()=>{});
                 document.getElementById('cameraControls').style.display = 'flex';
                 document.getElementById('cameraBtn').style.display = 'none';
                 document.getElementById('uploadBtn').style.display = 'none';
